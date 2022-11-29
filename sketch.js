@@ -17,8 +17,8 @@ the_rules[1] = ['B', '-AF-B-AFBA+'];
 let where_in_string = 0;
 
 function preload() {
-  music_excerpt_1 = loadSound('04082021.wav');
-  music_excerpt_2 = loadSound('040820212.wav');
+  music_excerpt_1 = loadSound('Don\'t Touch.mp3');
+  music_excerpt_2 = loadSound('Don\'t Touch Synths.mp3');
   img = loadImage('bg1.jpg');
 }
 
@@ -57,7 +57,7 @@ function setup() {
   check_1.style('font-family', 'Monaco');
   check_1.mousePressed(function() {
 
-    if ((/predictable/i).test(blank_1.value()) === true) {
+    if ((/studio/i).test(blank_1.value()) === true) {
       user_message_1.html('Correct!');
     } else {
       user_message_1.html('Nope :\)');
@@ -84,13 +84,13 @@ function setup() {
   check_2.style('color', col2);
   check_2.style('font-family', 'Monaco');
 
-  let lyrics_1 = createP('It\'s inevitable that most of us are on a');
+  let lyrics_1 = createP('It was just another sad day at the');
   lyrics_1.position(blank_1.x - width / 10, blank_1.y - 2 * height / 10);
   lyrics_1.style('font-family', 'helvetica');
   lyrics_1.style('color', 'rgb(60, 1, 115)');
   lyrics_1.style('font-size', '2em');
 
-  let lyrics_2 = createP('line of meaningless assembly trying to');
+  let lyrics_2 = createP('working to uphold the status quo, get on the');
 
   lyrics_2.position(blank_2.x - width / 10, blank_2.y - height / 6);
   lyrics_2.style('font-family', 'helvetica');
@@ -100,7 +100,7 @@ function setup() {
 
   check_2.mousePressed(function() {
 
-    if ((/breed/i).test(blank_2.value()) === true) {
+    if ((/radio/i).test(blank_2.value()) === true) {
       user_message_2.html('Those are the right letters!');
     } else {
       user_message_2.html('Less than satisfactory work there!');
@@ -123,14 +123,14 @@ function setup() {
 
   );
 	// book chapter sentences
-	let sentences = createP('My dream of 11 years finally came true. I got a vasectomy.');
+	let sentences = createP('My dream of 11 years finally came true. I cannot father children.');
 	sentences.position(width/10,4*height/5);
 	sentences.style('font-family','Courier');
 	sentences.style('color','rgb(23, 0, 43)');
 	sentences.style('font-size','1.5em');
-	
+
 	//invisible alert
-	
+
 	let invisibleAlertBtn = createButton('Treasure');
 	invisibleAlertBtn.position(3*width/4,height/12);
 	invisibleAlertBtn.style('background-color','rgba(0,0,0,0)');
@@ -142,44 +142,44 @@ function setup() {
 	invisibleAlertBtn.mousePressed(function(){
 		alert('I congratulated her. It was our 150th conversation. I keep statistics on my friends. ');
 	});
-	
+
 	//underwear arranger
-	
+
 	let underwearInput = createInput();
 	underwearInput.position(width/10,2*height/3);
 	underwearInput.style('background-color','rgb(120, 255, 120)');
 	underwearInput.style('font-family','Monaco');
 	underwearInput.style('color','grey');
-	
+
 	let quantityPrompt = createP('How many underwear do you have?');
 	quantityPrompt.position(underwearInput.x,underwearInput.y-50);
 	quantityPrompt.style('font-family','Monaco');
 	quantityPrompt.style('color','white');
-	
+
 	let user_message_3 = createP('');
   user_message_3.position(3*width/4, height/2);
   user_message_3.style('color', 'white');
   user_message_3.style('font-family', 'Monaco');
-	
+
 	let displayUnderwearArrangements = createButton('Find something out about your underwear!');
 	displayUnderwearArrangements.position(underwearInput.x,underwearInput.y+50);
 	displayUnderwearArrangements.style('background-color', 'rgba(0,0,0,0.3)');
   displayUnderwearArrangements.style('color', col2);
   displayUnderwearArrangements.style('font-family', 'Monaco');
-	
+
 	displayUnderwearArrangements.mousePressed(function underwearArrangements (){
 		let underwearInt = parseInt(underwearInput.value());
 		if(isNaN(underwearInt) || underwearInt<0){
 			let err = new Error('Please give the lady starfish machine a non-negative integer quantity of underwear. Don\'t worry. I won\'t hit you with a spatula.');
 			user_message_3.html(err);
 		}
-		
+
 		if(underwearInt===0){
-			user_message_3.html('There is only one way to wear your underwear. Have fun going commando!');
+			user_message_3.html('There is only one way to wear your underwear. Have fun!');
 		}else{
 			user_message_3.html("You can line up your underwear on top of a seesaw in " + factorial(underwearInt) + " ways! Have at it ;)");
 		}
-		
+
 		function factorial (x){
 			if(x===0){
 				return 1;
@@ -189,7 +189,7 @@ function setup() {
 		}
 
 	});
-	
+
 
   //Starting up Lindenmayer
 
@@ -217,7 +217,7 @@ function draw() {
   fill(232, 93, 0);
   rotate(-rot);
   stroke(col);
-  text("It's inevitable that most of us are on a", width / 4, height / 4);
+  text("It was just another sad day at the", width / 4, height / 4);
   pop();
 
 
@@ -230,7 +230,7 @@ function draw() {
   let between = lerpColor(from, to, sin(millis() / 1000));
   fill(between);
   stroke(col);
-  text("line of meaningless assembly trying to", width / 2, height / 2);
+  text("working to uphold the status quo, get on the", width / 2, height / 2);
   pop();
 
   //Draw Lindenmayer
