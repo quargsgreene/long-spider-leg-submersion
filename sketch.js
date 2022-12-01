@@ -170,7 +170,7 @@ function setup() {
 	displayUnderwearArrangements.mousePressed(function underwearArrangements (){
 		let underwearInt = parseInt(underwearInput.value());
 		if(isNaN(underwearInt) || underwearInt<0){
-			let err = new Error('Please give the lady starfish machine a non-negative integer quantity of underwear. Don\'t worry. I won\'t hit you with a spatula.');
+			let err = new Error('Please give the non-Euclidean ventricle machine a non-negative integer quantity of underwear. Don\'t worry. I won\'t hit you with a spatula.');
 			user_message_3.html(err);
 		}
 
