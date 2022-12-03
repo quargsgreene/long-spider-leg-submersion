@@ -1,7 +1,8 @@
 html, body {
   margin: 0;
   padding: 0;
-  canva:9py: block;
+  font-family: 'Monaco';
+  color: white;
 }
 
 .invisible{
@@ -9,5 +10,5 @@ html, body {
   font-size:1%;
   z-index:-1;
   position:absolute;
-  
+
 }

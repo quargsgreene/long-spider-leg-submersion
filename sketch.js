@@ -1,302 +1,258 @@
-//Undefined lyrics fill-in-the-blank game.
+// Undefined lyrics fill-in-the-blank game.
+let sound1;
+let sound2;
+let mic;
+let img;
+const step = 20;
+const angle = 110;
+let currentAngle = 2;
+let x;
+let y;
 
-let x, y;
-let current_angle = 2;
-let step = 20;
-let angle = 110;
-let music_excerpt_1;
-let music_excerpt_2;
-let mic,img;
+let lString = 'A';
+const numberOfLoops = 6;
+const lRules = [];
+lRules[0] = ['A', '-BF+AA+FB-'];
+lRules[1] = ['B', '-AF-B-AFBA+'];
 
-let the_string = 'A';
-let number_of_loops = 6;
-let the_rules = [];
-the_rules[0] = ['A', '-BF+AA+FB-'];
-the_rules[1] = ['B', '-AF-B-AFBA+'];
-
-let where_in_string = 0;
+let whereInString = 0;
 
 function preload() {
-  music_excerpt_1 = loadSound('Don\'t Touch.mp3');
-  music_excerpt_2 = loadSound('Don\'t Touch Synths.mp3');
+  sound1 = loadSound('Don\'t Touch.mp3');
+  sound2 = loadSound('Don\'t Touch Synths.mp3');
   img = loadImage('bg1.jpg');
 }
 
-
-
 function setup() {
+  const col = color(79, 206, 114, 100);
+  const col2 = color(228, 245, 232);
+  const col3 = color(157, 252, 182);
+  const col4 = color(91, 2, 173);
+  const col5 = color(255, 139, 64);
 
-  let col = color(79, 206, 114, 100);
-  let col2 = color(228, 245, 232);
-  let col3 = color(157, 252, 182);
-  let col4 = color(91, 2, 173);
-  let col5 = color(255, 139, 64);
-
-  let canvas = createCanvas(windowWidth, windowHeight);
+  createCanvas(windowWidth, windowHeight);
   background(img);
 
   mic = new p5.AudioIn();
 
-  //First user task
+  // First user task
+  const userInput1 = createInput();
+  userInput1.position(width / 4, height / 3);
+  userInput1.style('background-color', col4);
+  userInput1.style('color', col3);
 
-  let blank_1 = createInput();
-  blank_1.position(width / 4, height / 3);
-  blank_1.style('background-color', col4);
-  blank_1.style('color', col3);
-  blank_1.style('font-family', 'Monaco');
+  const userMessage1 = createElement('p', '');
+  userMessage1.position(userInput1.x + width / 8, userInput1.y - height / 10);
+  userMessage1.style('color', col5);
 
-  let user_message_1 = createElement('p', '');
-  user_message_1.position(blank_1.x + width / 8, blank_1.y - height / 10);
-  user_message_1.style('font-family', 'Monaco');
-  user_message_1.style('color', col5);
-
-  let check_1 = createButton('cHeCk');
-  check_1.position(width / 4, 5 * height / 12);
-  check_1.style('background-color', col);
-  check_1.style('color', col2);
-  check_1.style('font-family', 'Monaco');
-  check_1.mousePressed(function() {
-
-    if ((/studio/i).test(blank_1.value()) === true) {
-      user_message_1.html('Correct!');
+  const checkUserAnswer1 = createButton('cHeCk');
+  checkUserAnswer1.position(width / 4, (5 * height) / 12);
+  checkUserAnswer1.style('background-color', col);
+  checkUserAnswer1.style('color', col2);
+  checkUserAnswer1.mousePressed(() => {
+    if ((/studio/i).test(userInput1.value()) === true) {
+      userMessage1.html('Correct!');
     } else {
-      user_message_1.html('Nope :\)');
+      userMessage1.html('Nope :\)');
     }
-
   });
 
-  //Second user task
+  // Second user task
 
-  let blank_2 = createInput();
-  blank_2.position(width / 2, 2 * height / 3);
-  blank_2.style('background-color', col5);
-  blank_2.style('color', col3);
-  blank_2.style('font-family', 'Monaco');
+  const userInput2 = createInput();
+  userInput2.position(width / 2, (2 * height) / 3);
+  userInput2.style('background-color', col5);
+  userInput2.style('color', col3);
 
-  let user_message_2 = createP('');
-  user_message_2.position(blank_2.x + width / 4, blank_2.y - height / 15);
-  user_message_2.style('color', col4);
-  user_message_2.style('font-family', 'Monaco');
+  const userMessage2 = createP('');
+  userMessage2.position(userInput2.x + width / 4, userInput2.y - height / 15);
+  userMessage2.style('color', col4);
 
-  let check_2 = createButton('ChEcK');
-  check_2.position(width / 2, 3 * height / 4);
-  check_2.style('background-color', col);
-  check_2.style('color', col2);
-  check_2.style('font-family', 'Monaco');
+  const checkUserAnswer2 = createButton('ChEcK');
+  checkUserAnswer2.position(width / 2, (3 * height) / 4);
+  checkUserAnswer2.style('background-color', col);
+  checkUserAnswer2.style('color', col2);
 
-  let lyrics_1 = createP('It was just another sad day at the');
-  lyrics_1.position(blank_1.x - width / 10, blank_1.y - 2 * height / 10);
-  lyrics_1.style('font-family', 'helvetica');
-  lyrics_1.style('color', 'rgb(60, 1, 115)');
-  lyrics_1.style('font-size', '2em');
+  const lyrics1 = createP('It was just another sad day at the');
+  lyrics1.position(userInput1.x - width / 10, (userInput1.y - 2 * height) / 10);
+  lyrics1.style('font-family', 'helvetica');
+  lyrics1.style('color', 'rgb(60, 1, 115)');
+  lyrics1.style('font-size', '2em');
 
-  let lyrics_2 = createP('working to uphold the status quo, get on the');
+  const lyrics2 = createP('working to uphold the status quo, get on the');
 
-  lyrics_2.position(blank_2.x - width / 10, blank_2.y - height / 6);
-  lyrics_2.style('font-family', 'helvetica');
-  lyrics_2.style('color', col5);
-  lyrics_2.style('font-size', '1em');
+  lyrics2.position(userInput2.x - width / 10, userInput2.y - height / 6);
+  lyrics2.style('font-family', 'helvetica');
+  lyrics2.style('color', col5);
+  lyrics2.style('font-size', '1em');
 
-
-  check_2.mousePressed(function() {
-
-    if ((/radio/i).test(blank_2.value()) === true) {
-      user_message_2.html('Those are the right letters!');
+  checkUserAnswer2.mousePressed(() => {
+    if ((/radio/i).test(userInput2.value()) === true) {
+      userMessage2.html('Those are the right letters!');
     } else {
-      user_message_2.html('Less than satisfactory work there!');
+      userMessage2.html('Less than satisfactory work there!');
     }
   });
 
-  //Audio hints
-
-  let hint_1 = createButton('Play first hint ;/');
-  hint_1.position(4 * width / 5, height / 8);
-  hint_1.mousePressed(function() {
-    playSound(music_excerpt_1);
+  // Audio hints
+  const hint1 = createButton('Play first hint ;/');
+  hint1.position((4 * width) / 5, height / 8);
+  hint1.mousePressed(() => {
+    playSound(sound1);
   });
 
-  let hint_2 = createButton('Play second hint :0');
-  hint_2.position(78 * width / 100, height / 3);
-  hint_2.mousePressed(function() {
-      playSound(music_excerpt_2);
-    }
+  const hint2 = createButton('Play second hint :0');
+  hint2.position((78 * width) / 100, height / 3);
+  hint2.mousePressed(() => {
+    playSound(sound2);
+  });
+  // paraphrased quotes from my own writing
+  const sentences = createP('My dream of 11 years finally came true. I cannot father children.');
+  sentences.position(width / 10, (4 * height) / 5);
+  sentences.style('font-family', 'Courier');
+  sentences.style('color', 'rgb(23, 0, 43)');
+  sentences.style('font-size', '1.5em');
 
-  );
-	// book chapter sentences
-	let sentences = createP('My dream of 11 years finally came true. I cannot father children.');
-	sentences.position(width/10,4*height/5);
-	sentences.style('font-family','Courier');
-	sentences.style('color','rgb(23, 0, 43)');
-	sentences.style('font-size','1.5em');
+  // invisible alert
+  const invisibleAlertBtn = createButton('Treasure');
+  invisibleAlertBtn.position((3 * width) / 4, height / 12);
+  invisibleAlertBtn.class('invisible');
+  invisibleAlertBtn.mousePressed(() => {
+    alert('I congratulated her. It was our 150th conversation.\ I keep statistics on my friends. ');
+  });
 
-	//invisible alert
+  // underwear arranger
 
-	let invisibleAlertBtn = createButton('Treasure');
-	invisibleAlertBtn.position(3*width/4,height/12);
-	invisibleAlertBtn.style('background-color','rgba(0,0,0,0)');
-	invisibleAlertBtn.style('border','none');
-	invisibleAlertBtn.style('color','rgba(0,0,0,0)');
-	invisibleAlertBtn.style('width','1px');
-	invisibleAlertBtn.style('height','1px');
-	invisibleAlertBtn.style('font-size','1px');
-	invisibleAlertBtn.mousePressed(function(){
-		alert('I congratulated her. It was our 150th conversation. I keep statistics on my friends. ');
-	});
+  const underwearInput = createInput();
+  underwearInput.position(width / 10, (2 * height) / 3);
+  underwearInput.style('background-color', 'rgb(120, 255, 120)');
+  underwearInput.style('color', 'grey');
 
-	//underwear arranger
+  const quantityPrompt = createP('How many underwear do you have?');
+  quantityPrompt.position(underwearInput.x, underwearInput.y - 50);
 
-	let underwearInput = createInput();
-	underwearInput.position(width/10,2*height/3);
-	underwearInput.style('background-color','rgb(120, 255, 120)');
-	underwearInput.style('font-family','Monaco');
-	underwearInput.style('color','grey');
+  const userMessage3 = createP('');
+  userMessage3.position((3 * width) / 4, height / 2);
 
-	let quantityPrompt = createP('How many underwear do you have?');
-	quantityPrompt.position(underwearInput.x,underwearInput.y-50);
-	quantityPrompt.style('font-family','Monaco');
-	quantityPrompt.style('color','white');
-
-	let user_message_3 = createP('');
-  user_message_3.position(3*width/4, height/2);
-  user_message_3.style('color', 'white');
-  user_message_3.style('font-family', 'Monaco');
-
-	let displayUnderwearArrangements = createButton('Find something out about your underwear!');
-	displayUnderwearArrangements.position(underwearInput.x,underwearInput.y+50);
-	displayUnderwearArrangements.style('background-color', 'rgba(0,0,0,0.3)');
+  const displayUnderwearArrangements = createButton('Find something out about your underwear!');
+  displayUnderwearArrangements.position(underwearInput.x, underwearInput.y + 50);
+  displayUnderwearArrangements.style('background-color', 'rgba(0,0,0,0.3)');
   displayUnderwearArrangements.style('color', col2);
-  displayUnderwearArrangements.style('font-family', 'Monaco');
 
-	displayUnderwearArrangements.mousePressed(function underwearArrangements (){
-		let underwearInt = parseInt(underwearInput.value());
-		if(isNaN(underwearInt) || underwearInt<0){
-			let err = new Error('Please give the non-Euclidean ventricle machine a non-negative integer quantity of underwear. Don\'t worry! I won\'t hit you with a spatula.');
-			user_message_3.html(err);
-		}
+  displayUnderwearArrangements.mousePressed(() => {
+    const underwearInt = parseInt(underwearInput.value(), 10);
+    if (isNaN(underwearInt) || underwearInt < 0) {
+      const err = new Error('Please give the non-Euclidean ventricle machine a non-negative integer quantity of underwear. Don\'t worry! I won\'t hit you with a spatula.');
+      userMessage3.html(err);
+    }
 
-		if(underwearInt===0){
-			user_message_3.html('There is only one way to wear your underwear. Have fun!');
-		}else{
-			user_message_3.html("You can line up your underwear on top of a seesaw in " + factorial(underwearInt) + " ways! Have at it ;)");
-		}
+    if (underwearInt === 0) {
+      userMessage3.html('There is only one way to wear your underwear. Have fun!');
+    } else {
+      userMessage3.html(`You can line up your underwear on top of a seesaw in ${factorial(underwearInt)} ways! Have at it ;)`);
+    }
 
-		function factorial (x){
-			if(x===0){
-				return 1;
-			}else{
-				return x*factorial(x-1);
-			}
-		}
+    function factorial(num) {
+      if (num === 0) {
+        return 1;
+      }
+      return num * factorial(num - 1);
+    }
+  });
 
-	});
-
-
-  //Starting up Lindenmayer
-
+  // Starting up Lindenmayer
   stroke(255, 217, 0, 100);
   x = width / 3;
   y = height - 100;
 
-
-  for (let i = 0; i < number_of_loops; i++) {
-    the_string = lindenmayer(the_string);
+  for (let i = 0; i < numberOfLoops; i++) {
+    lString = lindenmayer(lString);
   }
-
-
 }
 
-
 function draw() {
+  // Some visual embellishment of the user tasks
 
-  //Some visual embellishment of the user tasks
-
-  let col = color(0, 100);
+  const col = color(0, 100);
   push();
-  let rot = map(mouseY, 0, height, 0, 5);
+  const rot = map(mouseY, 0, height, 0, 5);
   textSize(18);
   fill(232, 93, 0);
   rotate(-rot);
   stroke(col);
-  text("It was just another sad day at the", width / 4, height / 4);
+  text('It was just another sad day at the', width / 4, height / 4);
   pop();
-
 
   push();
-  let size = map(mouseX, 0, width, 12, 14);
+  const size = map(mouseX, 0, width, 12, 14);
   textSize(size);
   textFont('Courier');
-  let from = color(132, 0, 255);
-  let to = color(79, 206, 114);
-  let between = lerpColor(from, to, sin(millis() / 1000));
+  const from = color(132, 0, 255);
+  const to = color(79, 206, 114);
+  const between = lerpColor(from, to, sin(millis() / 1000));
   fill(between);
   stroke(col);
-  text("working to uphold the status quo, get on the", width / 2, height / 2);
+  text('working to uphold the status quo, get on the', width / 2, height / 2);
   pop();
 
-  //Draw Lindenmayer
+  // Draw Lindenmayer
 
-  drawIt(the_string[where_in_string]);
-
-  where_in_string++;
-  if (where_in_string > the_string.length - 1) {
-    where_in_string = 0;
+  drawLSystem(lString[whereInString]);
+  whereInString++;
+  if (whereInString > lString.length - 1) {
+    whereInString = 0;
   }
-
-
 }
 
-function lindenmayer(s) {
-  let outputstring = '';
+function lindenmayer(str) {
+  let outputString = '';
 
-  for (let i = 0; i < s.length; i++) {
+  for (let i = 0; i < str.length; i++) {
     let ismatch = 0;
-    for (let j = 0; j < the_rules.length; j++) {
-      if (s[i] == the_rules[j][0]) {
-        outputstring += the_rules[j][1];
+    for (let j = 0; j < lRules.length; j++) {
+      if (str[i] === lRules[j][0]) {
+        outputString += lRules[j][1];
         ismatch = 1;
         break;
       }
     }
-    if (ismatch == 0) {
-      outputstring += s[i];
+    if (ismatch === 0) {
+      outputString += str[i];
     }
   }
-  return outputstring;
+  return outputString;
 }
 
-function drawIt(k) {
-  if (k == 'F') {
-    let x1 = x + step * cos(radians(current_angle));
-    let y1 = y + step * sin(radians(current_angle));
+function drawLSystem(constantOrVariable) {
+  if (constantOrVariable === 'F') {
+    const x1 = x + step * cos(radians(currentAngle));
+    const y1 = y + step * sin(radians(currentAngle));
     line(x, y, x1, y1);
 
     x = x1;
     y = y1;
-  } else if (k == '+') {
-    current_angle += angle;
-  } else if (k == '-') {
-    current_angle -= angle;
+  } else if (constantOrVariable === '+') {
+    currentAngle += angle;
+  } else if (constantOrVariable === '-') {
+    currentAngle -= angle;
   }
 
-  let micLevel = mic.getLevel();
+  const micLevel = mic.getLevel();
 
-  let a = 100 + micLevel;
+  const amp = 100 + micLevel;
 
-  let from = color(232, 93, 0, a);
-  let to = color(46, 18, 0, a);
-  let between = lerpColor(from, to, micLevel / 2);
-
+  const from = color(232, 93, 0, amp);
+  const to = color(46, 18, 0, amp);
+  const between = lerpColor(from, to, micLevel / 2);
 
   let radius = 0;
   radius += 150 * micLevel;
   radius += 150 * micLevel;
   radius += 150 * micLevel;
-  radius = radius / 3;
-
+  radius /= 3;
 
   fill(between);
   polygon(x, y, 20, radius / 2, radius);
-
 }
 
 function mousePressed() {
@@ -307,16 +263,15 @@ function playSound(audio) {
   audio.play();
 }
 
-function polygon(x, y, n, size1, size2) {
-  let micLevel = mic.getLevel();
-  let sides = map(micLevel, 0, 1, 0, n);
-  let angle = 2 * PI / n + sides + random(0.1);
+function polygon(xRadius, yRadius, numberOfSides, size1, size2) {
+  const micLevel = mic.getLevel();
+  const sides = map(micLevel, 0, 1, 0, numberOfSides);
+  const polygonAngle = (2 * PI) / numberOfSides + sides + random(0.1);
   beginShape();
-  for (let i = 0; i < n; i += angle) {
-    vertex(x + size1 * cos(i), y + size2 * sin(i));
+  for (let i = 0; i < numberOfSides; i += polygonAngle) {
+    vertex(xRadius + size1 * cos(i), yRadius + size2 * sin(i));
   }
   endShape(CLOSE);
-
 }
 
 function windowResized() {

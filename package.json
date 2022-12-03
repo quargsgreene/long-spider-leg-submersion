@@ -1,0 +1,25 @@
+{
+  "name": "long-spider-leg-submersion",
+  "version": "1.0.0",
+  "description": "Long Spider Leg Submersion ==========================",
+  "main": "p5.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quargsgreene/long-spider-leg-submersion.git"
+  },
+  "author": "Quargs Greene",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/quargsgreene/long-spider-leg-submersion/issues"
+  },
+  "homepage": "https://github.com/quargsgreene/long-spider-leg-submersion#readme",
+  "devDependencies": {
+    "eslint": "^8.28.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-p5js": "^1.0.0"
+  }
+}
