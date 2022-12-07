@@ -40,6 +40,7 @@ function setup() {
   userInput1.position(width / 4, height / 3);
   userInput1.style('background-color', col4);
   userInput1.style('color', col3);
+  userInput1.id('prompt-1');
 
   const userMessage1 = createElement('p', '');
   userMessage1.position(userInput1.x + width / 8, userInput1.y - height / 10);
@@ -63,6 +64,7 @@ function setup() {
   userInput2.position(width / 2, (2 * height) / 3);
   userInput2.style('background-color', col5);
   userInput2.style('color', col3);
+  userInput2.id('prompt-2');
 
   const userMessage2 = createP('');
   userMessage2.position(userInput2.x + width / 4, userInput2.y - height / 15);
@@ -127,6 +129,7 @@ function setup() {
   underwearInput.position(width / 10, (2 * height) / 3);
   underwearInput.style('background-color', 'rgb(120, 255, 120)');
   underwearInput.style('color', 'grey');
+  underwearInput.id('prompt-3');
 
   const quantityPrompt = createP('How many underwear do you have?');
   quantityPrompt.position(underwearInput.x, underwearInput.y - 50);
@@ -138,18 +141,17 @@ function setup() {
   displayUnderwearArrangements.position(underwearInput.x, underwearInput.y + 50);
   displayUnderwearArrangements.style('background-color', 'rgba(0,0,0,0.3)');
   displayUnderwearArrangements.style('color', col2);
+  displayUnderwearArrangements.id('underwear');
 
   displayUnderwearArrangements.mousePressed(() => {
     const underwearInt = parseInt(underwearInput.value(), 10);
     if (isNaN(underwearInt) || underwearInt < 0) {
       const err = new Error('Please give the non-Euclidean ventricle machine a non-negative integer quantity of underwear. Don\'t worry! I won\'t hit you with a spatula.');
       userMessage3.html(err);
-    }
-
-    if (underwearInt === 0) {
+    } else if (underwearInt === 0) {
       userMessage3.html('There is only one way to wear your underwear. Have fun!');
     } else {
-      userMessage3.html(`You can line up your underwear on top of a seesaw in ${factorial(underwearInt)} ways! Have at it ;)`);
+      userMessage3.html(`You can line up your underwear on top of a refrigerator in ${factorial(underwearInt)} ways! Have at it ;)`);
     }
 
     function factorial(num) {
